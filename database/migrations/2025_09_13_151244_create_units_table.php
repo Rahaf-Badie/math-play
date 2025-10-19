@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreign('grade_id')->references('id')->on('grades')->onDelete('cascade');
             $table->unsignedBigInteger('semester_id');
             $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade');
+            $table->string('exam_url')->nullable();
             $table->timestamps();
         });
     }

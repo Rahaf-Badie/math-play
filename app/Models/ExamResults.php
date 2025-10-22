@@ -9,11 +9,11 @@ class ExamResults extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','unit_id','score','date'];
+    protected $fillable = ['student_id', 'unit_id', 'score', 'date'];
 
-    public function user()
+    public function student()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Student::class, 'student_id');
     }
 
     public function unit()

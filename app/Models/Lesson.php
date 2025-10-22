@@ -25,9 +25,9 @@ class Lesson extends Model
     {
         return $this->belongsTo(Unit::class);
     }
-    
+
     public function lessonGames()
     {
-        return $this->hasMany(LessonGame::class);
+        return $this->hasMany(LessonGames::class);
     }
 }

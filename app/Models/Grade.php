@@ -11,10 +11,10 @@ class Grade extends Model
 
     protected $fillable = ['name'];
 
-    // Relationship to Users (one grade has many users)
-    public function users()
+    // Relationship to Students (one grade has many students)
+    public function students()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Student::class);
     }
 
     // A better way to define the relationship to Lessons

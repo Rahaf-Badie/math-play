@@ -12,10 +12,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
-        'id_number',
-        'role',
         'email',
-        'grade_id',
         'password',
     ];
 
@@ -32,17 +29,7 @@ class User extends Authenticatable
         ];
     }
 
-    // Relationship to Grade (one user belongs to one grade)
-    public function grade()
-    {
-        return $this->belongsTo(Grade::class);
-    }
 
-    // Relationship to ExamResults (one user has many exam results)
-    public function examResults()
-    {
-        return $this->hasMany(ExamResults::class);
-    }
 
     // Relationship to Sessions (one user has many sessions)
     //public function sessions() {

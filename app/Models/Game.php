@@ -13,6 +13,6 @@ class Game extends Model
 
     public function lesson_games()
     {
-        return $this->hasMany(LessonGame::class);
+        return $this->hasMany(LessonGames::class);
     }
 }

@@ -19,6 +19,6 @@ class GameContent extends Model
 
     public function lessonGame()
     {
-        return $this->belongsTo(LessonGame::class, 'lesson_game_id');
+        return $this->belongsTo(LessonGames::class, 'lesson_game_id');
     }
 }

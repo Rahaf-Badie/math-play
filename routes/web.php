@@ -1,29 +1,39 @@
 <?php
 
-use App\Http\Controllers\MathPlayController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MathPlayController;
+use App\Http\Controllers\AuthController;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('mathplay')->group(function () {
+
+    // الصفحة العامة (واجهة الموقع)
+
+    Route::get('index', [MathPlayController::class, 'index'])->name('index');
+
+    // 🔸 صفحات الزوار فقط (guest)
+
+    Route::middleware('guest')->group(function () {
+        Route::get('signin', [AuthController::class, 'showLoginForm'])->name('signin');
+        Route::post('signin', [AuthController::class, 'login'])->name('signin.post');
+
+        Route::get('signup', [AuthController::class, 'showSignupForm'])->name('signup');
+        Route::post('signup', [AuthController::class, 'signup'])->name('signup.post');
+    });
+
+    // 🔸 صفحات المستخدمين المسجلين (auth)
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('edit-student/{id}', [MathPlayController::class, 'editStudent'])->name('edit-student');
+        Route::post('edit-student/{id}', [MathPlayController::class, 'updateStudent'])->name('update-student');
+
+        Route::get('reports', [MathPlayController::class, 'reports'])->name('reports');
+        Route::get('lessons-page', [MathPlayController::class, 'lessonsPage'])->name('lessons-page');
+
+        Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+    });
+
+    // (اختياري) صفحات تتطلب تأكيد البريد
+    // Route::middleware(['auth', 'verified'])->group(function () {
+    //     Route::get('verified-only-page', [MathPlayController::class, 'verifiedPage'])->name('verified.page');
+    // });
 });
-
-// Grouping routes for 'mathplay' with security and controller settings
-//Route::group(['prefix' => 'mathplay', 'middleware' => ['web', 'auth']], function () {
-//    Route::controller(MathPlayController::class)->group(function () {
-//        Route::get('/index', 'index')->name('index');
-//        Route::get('/edit_student/{id}', 'edit_student')->name('edit_student');
-//        Route::post('/update','update')->name('update');
-//        Route::get('/reports', 'reports')->name('reports');
-//        Route::get('/student', 'student')->name('student');
-//    });
-
-//});
-
-// Authentication routes (Signin and Signup) - these should not be protected by the 'auth' middleware
-//Route::controller(MathPlayController::class)->group(function () {
-//    Route::get('/signin', 'signin')->name('signin');
-//    Route::get('/signup', 'signup')->name('signup');
-//});
-
-//require __DIR__.'/auth.php';
-

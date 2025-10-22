@@ -16,4 +16,5 @@ class MathPlayController extends RoutingController
         // منطق الدالة هنا
         return view('index');
     }
+    
 }

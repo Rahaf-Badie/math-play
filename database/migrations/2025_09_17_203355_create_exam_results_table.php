@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('exam_results', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('student')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->foreignId('unit_id')->constrained('unit')->onDelete('cascade');
             $table->integer('score');
             $table->date('date');

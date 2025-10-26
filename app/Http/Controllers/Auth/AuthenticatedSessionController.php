@@ -29,7 +29,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('mathplay.home', absolute: false));
+        return redirect()->intended(route('mathplay.home'));
     }
 
     /**
@@ -45,6 +45,6 @@ class AuthenticatedSessionController extends Controller
     $request->session()->regenerateToken();
 
     // إعادة التوجيه للصفحة الرئيسية العامة بعد تسجيل الخروج
-    return Redirect::route('mathplay.index');
+    return redirect()->route('mathplay.home');
 }
 }

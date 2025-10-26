@@ -12,9 +12,22 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
+        'gender',
+        'grade_id',
         'email',
         'password',
     ];
+
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class);
+    }
+
+    public function examResults()
+    {
+        return $this->hasMany(ExamResults::class, 'student_id');
+    }
+
 
     protected $hidden = [
         'password',

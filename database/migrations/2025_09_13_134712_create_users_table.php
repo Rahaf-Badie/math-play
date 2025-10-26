@@ -11,13 +11,17 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->foreignId('grade_id')->nullable()->constrained('grades')->onDelete('set null');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('is_active')->default(true);
+            $table->timestamp('last_time_logged_in')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
-        
+
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');

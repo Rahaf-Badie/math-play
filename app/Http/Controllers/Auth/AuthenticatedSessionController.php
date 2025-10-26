@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Redirect;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -16,7 +17,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        return view('mathplay.signin');
     }
 
     /**
@@ -28,20 +29,22 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('mathplay.home', absolute: false));
     }
 
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): RedirectResponse
-    {
-        Auth::guard('web')->logout();
+    public function destroy(Request $request)
+{
+    // تسجيل الخروج
+    Auth::logout();
 
-        $request->session()->invalidate();
+    // إبطال الجلسة الحالية وتوليد توكن جديد للحماية
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
 
-        $request->session()->regenerateToken();
-
-        return redirect('/');
-    }
+    // إعادة التوجيه للصفحة الرئيسية العامة بعد تسجيل الخروج
+    return Redirect::route('mathplay.index');
+}
 }

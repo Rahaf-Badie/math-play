@@ -1,0 +1,20 @@
+.student-page .student-topbar{ background:#ffffff; border-radius:16px; padding:14px 18px; box-shadow: var(--shadow); display:flex; align-items:center; justify-content:space-between; margin: 18px 0; }
+.student-page .student-id{ display:flex; align-items:center; gap:12px; }
+.student-page .student-avatar{ width:44px; height:44px; border-radius:12px; background: linear-gradient(135deg,#ffd166,#ffb703); display:flex; align-items:center; justify-content:center; color:#0b3a66; font-weight:800; box-shadow:0 6px 14px rgba(0,0,0,.08); }
+.student-page .notif{ position:relative; background:linear-gradient(135deg, var(--accent), var(--accent-700)); color:#fff; border:none; border-radius:12px; padding:10px 14px; display:inline-flex; align-items:center; gap:8px; }
+.student-page .notif-badge{ position:absolute; top:-6px; inset-inline-end:-6px; background:#ef4444; color:#fff; min-width:20px; height:20px; border-radius:999px; font-size:12px; display:flex; align-items:center; justify-content:center; border:2px solid #fff; }
+.student-page .section-title-sm{ font-family:'Lalezar',cursive; color:#0d3a66; margin: 8px 0 14px; }
+.student-page .cards-grid{ display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
+.student-page .term-card, .student-page .unit-card, .student-page .lesson-card{ border-radius:16px; padding:16px; background:#fff; box-shadow: var(--shadow); cursor:pointer; transition: transform .2s ease, box-shadow .2s ease; }
+.student-page .term-card:hover, .student-page .unit-card:hover, .student-page .lesson-card:hover{ transform: translateY(-4px); box-shadow: 0 16px 34px rgba(0,0,0,.12); }
+.student-page .term-card--1{ background:linear-gradient(135deg,#fff8eb,#ffe7b3); }
+.student-page .term-card--2{ background:linear-gradient(135deg,#fff0f7,#ffd4ec); }
+.student-page .unit-icon{ font-size:28px; }
+.student-page .muted{ color:#64748b; font-size:.95rem; }
+.student-page .hidden{ display:none !important; }
+.student-page .breadcrumb-lite{ display:flex; gap:8px; align-items:center; color:#475569; font-size:.95rem; margin:8px 0 16px; }
+.student-page .breadcrumb-lite a{ color: var(--accent); text-decoration:none; }
+.student-page .lesson-list{ display:grid; grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
+.student-page .lesson-card img{ width:48px; height:48px; object-fit:cover; border-radius:12px; box-shadow:0 6px 14px rgba(0,0,0,.08); }
+.student-page .lesson-cta{ margin-top:14px; display:flex; gap:10px; }
+

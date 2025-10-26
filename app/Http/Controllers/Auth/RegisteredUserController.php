@@ -15,36 +15,55 @@ use Illuminate\View\View;
 class RegisteredUserController extends Controller
 {
     /**
-     * Display the registration view.
+     * عرض صفحة التسجيل.
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('mathplay.signup'); // واجهة تسجيل الطالب
     }
 
     /**
-     * Handle an incoming registration request.
+     * معالجة التسجيل الجديد.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
+        // التحقق من صحة البيانات
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                function ($attribute, $value, $fail) {
+                    // الاسم يجب أن يكون رباعي (أربع كلمات على الأقل)
+                    if (substr_count(trim($value), ' ') < 3) {
+                        $fail('الاسم يجب أن يكون رباعي (أربع كلمات على الأقل).');
+                    }
+                },
+            ],
+            'grade_id' => ['required', 'integer'], // الصف الدراسي
+            'gender' => ['required'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // إنشاء الطالب
         $user = User::create([
             'name' => $request->name,
+            'gender' => $request->gender,
+            'grade_id' => $request->grade_id,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+        // حدث التسجيل (لـ Laravel)
         event(new Registered($user));
 
+        // تسجيل الدخول مباشرة بعد التسجيل
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // توجيه الطالب للصفحة الرئيسية الخاصة به
+        return redirect()->route('mathplay.home');
     }
 }

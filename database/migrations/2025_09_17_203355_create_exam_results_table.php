@@ -10,8 +10,10 @@ return new class extends Migration
     {
         Schema::create('exam_results', function (Blueprint $table) {
             $table->id();
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
-            $table->foreignId('unit_id')->constrained('unit')->onDelete('cascade');
+            // المفتاح الأجنبي للطلاب
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            // المفتاح الأجنبي للوحدات
+            $table->foreignId('unit_id')->constrained('units')->onDelete('cascade');
             $table->integer('score');
             $table->date('date');
             $table->timestamps();

@@ -9,7 +9,9 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Lalezar&display=swap" rel="stylesheet">
 
-    @vite('resources/css/app.css')
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+
 
 </head>
 <body>
@@ -65,8 +67,8 @@
                     <li class="nav-item"><a class="nav-link" href="#contact">تواصل</a></li>
                 </ul>
                 <div class="d-flex nav-actions gap-2">
-                    <a class="btn btn-login" href="login.html">تسجيل الدخول</a>
-                    <a class="btn btn-cta" href="signup.html">إنشاء حساب</a>
+                    <a class="btn btn-login" href="{{ route('mathplay.signin') }} ">تسجيل الدخول</a>
+                    <a class="btn btn-cta" href="{{ route('mathplay.signup') }}">إنشاء حساب</a>
                 </div>
             </div>
         </div>
@@ -89,7 +91,7 @@
                     <p class="subtitle">تعلّم الرياضيات بأسلوب ممتع ومرح للأطفال من **الصف الأول حتى الصف الرابع** — فيديوهات، اختبارات قصيرة، وألعاب تفاعلية تجعل التعلم مغامرة رائعة!</p>
                     <div class="mt-4 d-flex gap-3 flex-wrap">
                         <a href="#services" class="btn btn-solid">اكتشف خدماتنا</a>
-                        <a href="signup.html" class="btn btn-ghost">ابدأ الآن</a>
+                        <a href="{{ route('mathplay.signup') }}" class="btn btn-ghost">ابدأ الآن</a>
                     </div>
                 </div>
             </div>
@@ -106,7 +108,7 @@
                     <h2 class="section-title wavy-underline">عن المنصة</h2>
                     <p>منصة <strong>Math&Play</strong> صُمّمت لتجعل الرياضيات رحلة ممتعة مليئة بالتشويق والاكتشاف، بعيدًا عن الطرق التقليدية المملة.</p>
                     <p>نوفر مسارات مناسبة للأعمار **من الصف الأول حتى الرابع**، مع تجارب تفاعلية تقيس تقدم طفلك وتحمّسه للتعلم.</p>
-                    <a href="signup.html" class="btn btn-solid mt-2">سجل لطفلك الآن</a>
+                    <a href="{{ route('mathplay.signup') }}" class="btn btn-solid mt-2">سجل لطفلك الآن</a>
                 </div>
             </div>
         </div>
@@ -205,8 +207,8 @@
             <h2 class="section-title text-center wavy-underline">سجّل بالموقع</h2>
             <p class="lead">إذا أعجبك موقعنا تفضل بالتسجيل معنا لابنك/أبنائك في منصتنا <strong>Math&Play</strong>.</p>
             <div class="btn-group-cta">
-                <a href="login.html" class="btn btn-ghost px-4 py-2">تسجيل الدخول</a>
-                <a href="signup.html" class="btn btn-solid px-4 py-2">أنشئ حساب</a>
+                <a href="{{ route('mathplay.signin') }}" class="btn btn-ghost px-4 py-2">تسجيل الدخول</a>
+                <a href="{{ route('mathplay.signup') }}" class="btn btn-solid px-4 py-2">أنشئ حساب</a>
             </div>
         </div>
     </section>

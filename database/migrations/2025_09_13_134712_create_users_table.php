@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('is_active')->default(true);
             $table->timestamp('last_time_logged_in')->nullable();
+            $table->integer('streak_days')->default(0)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

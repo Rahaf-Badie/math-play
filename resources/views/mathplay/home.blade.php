@@ -190,13 +190,25 @@
                     <li class="nav-item"><a class="nav-link" href="index.html#contact">تواصل</a></li>
                 </ul>
                 <div class="d-flex nav-actions gap-2">
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-login">
-                            تسجيل خروج
-                        </button>
-                    </form>
-                </div>
+    <!-- زر تعديل معلومات الطالب -->
+    <a href="{{ route('mathplay.edit_student') }}" class="btn btn-login">
+        تعديل معلومات الطالب
+    </a>
+
+    <!-- زر عرض العلامات -->
+    <a href="{{ route('mathplay.marks') }}" class="btn btn-login">
+        عرض العلامات
+    </a>
+
+    <!-- زر تسجيل الخروج -->
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="btn btn-login">
+            تسجيل خروج
+        </button>
+    </form>
+</div>
+
             </div>
         </div>
     </nav>
@@ -236,7 +248,10 @@
                         <input id="searchInput" type="search" placeholder="ابحث عن درس أو وحدة..."
                             class="form-control" />
                     </div>
+                    <!-- ضع النتائج هنا خارج flex -->
+                    <div id="searchResults" style="margin-top:10px;"></div>
                 </div>
+
                 <div class="col-md-3">
                     <div class="pdf-card"
                         style="display:flex; align-items:center; gap:10px; justify-content:space-between;">
@@ -244,10 +259,13 @@
                             <span style="font-size:20px">🔥</span>
                             <div>
                                 <div style="font-weight:800">سلسلة الأيام</div>
-                                <div class="muted"><span id="streakDays">0</span> يوم متتالي</div>
+                                <div class="muted">
+                                    <span id="streakDays">{{ Auth::user()->streak_days ?? 0 }}</span> يوم متتالي
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="col-md-3">
                     <div id="continueCard" class="pdf-card"
@@ -283,53 +301,35 @@
             </section>
 
             <section id="unitsView" class="hidden">
-                <div class="cards-grid">
-                    <div class="unit-card" data-unit="addsub">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div>
-                                <div class="unit-icon mb-1">➕➖</div>
-                                <strong>الوحدة 1: الجمع والطرح</strong>
-                                <div class="muted">أساسيات العمليات</div>
+                <div class="cards-grid" id="unitsContainer">
+                    @foreach ($units as $semesterId => $semesterUnits)
+                        @foreach ($semesterUnits as $index => $unit)
+                            <div class="unit-card hidden" data-unit="{{ $unit->id }}"
+                                data-semester="{{ $semesterId }}">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <strong>الوحدة {{ $index + 1 }}: {{ $unit->name }}</strong>
+                                        <div class="muted">{{ $unit->description ?? 'وحدة دراسية' }}</div>
+                                    </div>
+                                    <img alt="{{ $unit->name }}"
+                                        src="{{ $unit->image_url ?? 'https://cdn-icons-png.flaticon.com/512/1995/1995403.png' }}"
+                                        width="44" height="44" style="border-radius:12px;" />
+                                </div>
                             </div>
-                            <img alt="جمع وطرح" src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png"
-                                width="44" height="44" style="border-radius:12px;" />
-                        </div>
-                    </div>
-
-                    <div class="unit-card" data-unit="multiply">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div>
-                                <div class="unit-icon mb-1">✖️</div>
-                                <strong>الوحدة 2: الضرب</strong>
-                                <div class="muted">جداول الضرب وتمارين</div>
-                            </div>
-                            <img alt="الضرب" src="https://cdn-icons-png.flaticon.com/512/1828/1828743.png"
-                                width="44" height="44" style="border-radius:12px;" />
-                        </div>
-                    </div>
-
-                    <div class="unit-card" data-unit="geometry">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div>
-                                <div class="unit-icon mb-1">📐</div>
-                                <strong>الوحدة 3: الهندسة</strong>
-                                <div class="muted">أشكال ومساحات</div>
-                            </div>
-                            <img alt="الهندسة" src="https://cdn-icons-png.flaticon.com/512/1995/1995403.png"
-                                width="44" height="44" style="border-radius:12px;" />
-                        </div>
-                    </div>
+                        @endforeach
+                    @endforeach
                 </div>
             </section>
 
             <section id="lessonsView" class="hidden">
-                <div class="lesson-list" id="lessonList">
+                <div class="cards-grid" id="lessonList">
+                    <!-- الدروس ستظهر هنا ديناميكياً -->
                 </div>
-                <div class="lesson-cta">
+
+                <div class="lesson-cta" style="text-align:center; margin-top:20px;">
                     <button id="backToUnits" class="btn btn-ghost">رجوع للوحدات</button>
                 </div>
             </section>
-
         </div>
     </main>
 
@@ -384,181 +384,219 @@
             </div>
         </div>
     </footer>
-
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- سكريبتك الخاص (IIFE) -->
+    <!-- سكريبت شامل: البحث + عرض الفصول والوحدات والدروس -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        try {
-            const yearEl = document.getElementById('year');
-            if (yearEl) yearEl.textContent = new Date().getFullYear();
-        } catch (e) {}
+document.addEventListener('DOMContentLoaded', function() {
+    // عناصر الصفحة
+    const termsView = document.getElementById('termsView');
+    const unitsView = document.getElementById('unitsView');
+    const lessonsView = document.getElementById('lessonsView');
+    const crumbLevel = document.getElementById('crumbLevel');
+    const crumbUnitWrap = document.getElementById('crumbUnitWrap');
+    const crumbUnit = document.getElementById('crumbUnit');
+    const lessonList = document.getElementById('lessonList');
+    const backToUnits = document.getElementById('backToUnits');
 
-        // Simple state navigation
-        (function() {
-            const termsView = document.getElementById('termsView');
-            const unitsView = document.getElementById('unitsView');
-            const lessonsView = document.getElementById('lessonsView');
-            const crumbLevel = document.getElementById('crumbLevel');
-            const crumbUnitWrap = document.getElementById('crumbUnitWrap');
-            const crumbUnit = document.getElementById('crumbUnit');
-            const lessonList = document.getElementById('lessonList');
-            const backToUnits = document.getElementById('backToUnits');
+    function show(view) {
+        [termsView, unitsView, lessonsView].forEach(v => v.classList.add('hidden'));
+        view.classList.remove('hidden');
+    }
 
-            function show(view) {
-                [termsView, unitsView, lessonsView].forEach(v => v.classList.add('hidden'));
-                view.classList.remove('hidden');
+    // عند الضغط على فصل -> إظهار الوحدات التابعة له
+    document.querySelectorAll('[data-term]').forEach(card => {
+        card.addEventListener('click', () => {
+            const termId = card.getAttribute('data-term');
+            document.querySelectorAll('#unitsView .unit-card').forEach(u => {
+                u.style.display = (u.getAttribute('data-semester') === termId) ? 'flex' : 'none';
+                u.classList.remove('hidden');
+            });
+            show(unitsView);
+            crumbLevel.textContent = 'الوحدات';
+            crumbUnitWrap.classList.add('hidden');
+        });
+    });
+
+    // عند الضغط على وحدة -> جلب الدروس عبر AJAX وعرضها كبطاقات
+    document.querySelectorAll('#unitsView .unit-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const unitId = card.getAttribute('data-unit');      // رقم الوحدة
+            const unitName = card.querySelector('strong').textContent.trim();
+
+            // واجهة
+            crumbLevel.textContent = 'الدروس';
+            crumbUnit.textContent = unitName;
+            crumbUnitWrap.classList.remove('hidden');
+            show(lessonsView);
+
+            // تنظيف أي دروس قديمة
+            lessonList.innerHTML = '';
+
+            // نستخدم URL مباشر مع unitId — هذا آمن لأن القيمة ديناميكية في الـ client
+            const url = `/mathplay/get-lessons-by-unit/${unitId}`;
+
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(resp => {
+                if (!resp.ok) throw new Error('Network response was not ok');
+                return resp.json();
+            })
+            .then(data => {
+                if (data.lessons && data.lessons.length > 0) {
+                    data.lessons.forEach((lesson, idx) => {
+                        const div = document.createElement('div');
+                        div.className = 'unit-card'; // نعيد استخدام نفس ستايل الوحدات للاتساق
+                        div.innerHTML = `
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <strong>الدرس ${idx + 1}: ${escapeHtml(lesson.name || '—')}</strong>
+                                    <div class="muted">${escapeHtml(lesson.description || 'درس تفاعلي')}</div>
+                                </div>
+                                <img src="${lesson.image_url || 'https://cdn-icons-png.flaticon.com/512/4727/4727269.png'}"
+                                     alt="${escapeHtml(lesson.name || '')}"
+                                     width="44" height="44" style="border-radius:12px;" />
+                            </div>
+                        `;
+                        lessonList.appendChild(div);
+                    });
+                } else {
+                    lessonList.innerHTML = '<div class="muted" style="text-align:center;">لا توجد دروس متاحة لهذه الوحدة.</div>';
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                lessonList.innerHTML = '<div style="color:red;text-align:center;">حدث خطأ أثناء تحميل الدروس.</div>';
+            });
+        });
+    });
+
+    // زر العودة
+    if (backToUnits) backToUnits.addEventListener('click', () => {
+        show(unitsView);
+        crumbLevel.textContent = 'الوحدات';
+        crumbUnitWrap.classList.add('hidden');
+    });
+
+    // زر الصفحة الرئيسية في breadcrumb أو أي زر home
+const crumbHome = document.getElementById('crumbHome');
+if (crumbHome) {
+    crumbHome.addEventListener('click', e => {
+        e.preventDefault(); // منع السلوك الافتراضي للرابط
+
+        // إعادة التوجيه للصفحة الرئيسية للطالب
+        window.location.href = "{{ route('mathplay.home') }}";
+    });
+}
+
+
+    // دالة بسيطة لحماية إدخال HTML (تلاسُق بسيط)
+    function escapeHtml(str) {
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
+});
+</script>
+
+
+
+    /* -------------------------------
+    🔹 ثانياً: ميزة البحث الفوري
+    -------------------------------- */
+    $(document).ready(function() {
+    const $searchInput = $('#searchInput');
+    const $results = $('#searchResults');
+
+    $searchInput.on('input', function() {
+    const query = $(this).val().trim();
+
+    if (query.length === 0) {
+    $results.empty();
+    return;
+    }
+
+    $.ajax({
+    url: "{{ route('search') }}",
+    type: 'GET',
+    data: {
+    query
+    },
+    success: function(data) {
+    let html = '';
+    if (data.lessons && data.lessons.length > 0) {
+    html += '<ul style="padding-left:10px;">';
+        data.lessons.forEach(item => {
+        html +=
+        `<li style="margin-bottom:5px;">${item.lesson_name} → ${item.unit_name} → ${item.semester_name}</li>`;
+        });
+        html += '</ul>';
+    } else {
+    html = '<p>لا توجد نتائج.</p>';
+    }
+    $results.html(html);
+    },
+    error: function() {
+    $results.html('<p>حدث خطأ أثناء البحث.</p>');
+    }
+    });
+    });
+    });
+    </script>
+
+    </script>
+    <!-- سلسلة الأيام المتتالية -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const streakEl = document.getElementById('streakDays');
+            const today = new Date();
+            const todayStr = today.toISOString().split('T')[0]; // YYYY-MM-DD
+
+            // استرجاع آخر يوم وآخر streak من localStorage
+            let lastLogin = localStorage.getItem('last_time_logged_in');
+            let streak = parseInt(localStorage.getItem('streak') || '0', 10);
+
+            if (lastLogin) {
+                const lastDate = new Date(lastLogin);
+                const diff = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
+
+                if (diff === 1) {
+                    // اليوم التالي → زيادة السلسلة
+                    streak += 1;
+                } else if (diff > 1) {
+                    // انقطع streak
+                    streak = 1;
+                }
+                // إذا diff === 0 → نفس اليوم → لا تغير
+            } else {
+                // أول مرة زيارة
+                streak = 1;
             }
 
-            // Click term -> units
-            document.querySelectorAll('[data-term]').forEach(card => {
-                card.addEventListener('click', () => {
-                    show(unitsView);
-                    crumbLevel.textContent = 'الوحدات';
-                    crumbUnitWrap.classList.add('hidden');
-                });
-            });
+            // تحديث LocalStorage
+            localStorage.setItem('streak', streak);
+            localStorage.setItem('last_time_logged_in', todayStr);
 
-            // Units -> lessons (populate sample lessons)
-            const lessonsByUnit = {
-                addsub: [{
-                        t: 'الجمع حتى 10',
-                        img: 'https://cdn-icons-png.flaticon.com/512/4151/4151047.png'
-                    },
-                    {
-                        t: 'الطرح حتى 10',
-                        img: 'https://cdn-icons-png.flaticon.com/512/1995/1995493.png'
-                    },
-                    {
-                        t: 'مقارنة الأعداد',
-                        img: 'https://cdn-icons-png.flaticon.com/512/4151/4151059.png'
-                    },
-                ],
-                multiply: [{
-                        t: 'جدول 2',
-                        img: 'https://cdn-icons-png.flaticon.com/512/1828/1828743.png'
-                    },
-                    {
-                        t: 'جدول 3',
-                        img: 'https://cdn-icons-png.flaticon.com/512/565/565547.png'
-                    },
-                    {
-                        t: 'تدريبات ضرب',
-                        img: 'https://cdn-icons-png.flaticon.com/512/1828/1828774.png'
-                    },
-                ],
-                geometry: [{
-                        t: 'الأشكال الأساسية',
-                        img: 'https://cdn-icons-png.flaticon.com/512/1995/1995403.png'
-                    },
-                    {
-                        t: 'المحيط والمساحة',
-                        img: 'https://cdn-icons-png.flaticon.com/512/3610/3610668.png'
-                    },
-                    {
-                        t: 'قياس الأطوال',
-                        img: 'https://cdn-icons-png.flaticon.com/512/1995/1995441.png'
-                    },
-                ],
-            };
-
-            document.querySelectorAll('[data-unit]').forEach(card => {
-                card.addEventListener('click', () => {
-                    const unitKey = card.getAttribute('data-unit');
-                    const items = lessonsByUnit[unitKey] || [];
-                    lessonList.innerHTML = items.map(i => `
-            <button class="lesson-card" data-lesson="${i.t}" data-img="${i.img}" data-unit="${unitKey}" style="text-align:right">
-              <div class="d-flex align-items-center gap-2">
-                <img src="${i.img}" alt="${i.t}">
-                <div>
-                  <strong>${i.t}</strong>
-                  <div class="muted">نشاطات وتمارين</div>
-                </div>
-              </div>
-            </button>
-          `).join('');
-                    document.querySelectorAll('#lessonList [data-lesson]').forEach(btn => {
-                        btn.addEventListener('click', () => {
-                            const name = btn.getAttribute('data-lesson');
-                            const img = btn.getAttribute('data-img');
-                            const unit = btn.getAttribute('data-unit');
-                            try {
-                                localStorage.setItem('lastLesson', JSON.stringify({
-                                    name,
-                                    img,
-                                    unit
-                                }));
-                            } catch (e) {}
-                            // التوجيه إلى صفحة الدروس - يتم تمرير تفاصيل الدرس في الرابط
-                            window.location.href =
-                                `lessons.html?unit=${encodeURIComponent(unit)}&lesson=${encodeURIComponent(name)}&img=${encodeURIComponent(img)}`;
-                        });
-                    });
-                    show(lessonsView);
-                    crumbLevel.textContent = 'الدروس';
-                    // يتم تحديث اسم الوحدة في شريط التنقل
-                    crumbUnit.textContent = card.querySelector('strong').textContent.trim();
-                    crumbUnitWrap.classList.remove('hidden');
-                });
-            });
-
-            if (backToUnits) backToUnits.addEventListener('click', () => {
-                show(unitsView);
-                crumbLevel.textContent = 'الوحدات';
-                crumbUnitWrap.classList.add('hidden');
-            });
-
-            const crumbHome = document.getElementById('crumbHome');
-            if (crumbHome) crumbHome.addEventListener('click', (e) => {
-                e.preventDefault();
-                show(termsView);
-                crumbLevel.textContent = 'الفصول';
-                crumbUnitWrap.classList.add('hidden');
-            });
-
-            // search filter
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) searchInput.addEventListener('input', () => {
-                const q = searchInput.value.trim();
-                // يتم تطبيق البحث على الدروس أو الوحدات حسب الواجهة الظاهرة
-                if (!lessonsView.classList.contains('hidden')) {
-                    document.querySelectorAll('#lessonList .lesson-card').forEach(card => {
-                        const text = card.textContent || '';
-                        card.style.display = text.includes(q) ? '' : 'none';
-                    });
-                } else if (!unitsView.classList.contains('hidden')) {
-                    document.querySelectorAll('#unitsView .unit-card').forEach(card => {
-                        const text = card.textContent || '';
-                        card.style.display = text.includes(q) ? '' : 'none';
-                    });
-                }
-            });
-
-            // streak (مُبقاة كواجهة فقط مع حذف زر الإعادة)
-            try {
-                const streakDaysEl = document.getElementById('streakDays');
-                let streak = parseInt(localStorage.getItem('streak') || '0', 10);
-                // لغرض العرض فقط، يمكن زيادة السلسلة يدوياً عند العودة للصفحة إذا لم يتم ربطها بباك إند
-                // أو ببساطة عرض القيمة الحالية
-                streakDaysEl.textContent = String(streak);
-            } catch (e) {}
-
-            // continue learning
-            try {
-                const contCard = document.getElementById('continueCard');
-                const contLabel = document.getElementById('continueLabel');
-                const contLink = document.getElementById('continueLink');
-                const last = JSON.parse(localStorage.getItem('lastLesson') || 'null');
-                if (last) {
-                    contLabel.textContent = last.name;
-                    contLink.href =
-                        `lessons.html?unit=${encodeURIComponent(last.unit)}&lesson=${encodeURIComponent(last.name)}&img=${encodeURIComponent(last.img)}`;
-                } else {
-                    // تعطيل البطاقة إذا لم يكن هناك درس سابق
-                    contCard.style.opacity = .6;
-                    contLink.href = '#';
-                }
-            } catch (e) {}
-        })();
+            // تحديث الواجهة
+            if (streakEl) streakEl.textContent = streak;
+        });
     </script>
+
+
 </body>
 
 </html>

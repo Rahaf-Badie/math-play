@@ -13,7 +13,7 @@ class SemesterSeeder extends Seeder
      */
     public function run(): void
     {
-        Semester::create(['name' => 'الأول']);
-        Semester::create(['name' => 'الثاني']);
+        Semester::create(['name' => 'الفصل الأول']);
+        Semester::create(['name' => 'الفصل الثاني']);
     }
 }

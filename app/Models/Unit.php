@@ -15,6 +15,13 @@ class Unit extends Model
     {
         return $this->hasMany(Lesson::class);
     }
+    public function semester() {
+        return $this->belongsTo(Semester::class);
+    }
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class);
+    }
     public function examResult()
 {
     return $this->hasOne(ExamResults::class);

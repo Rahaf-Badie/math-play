@@ -15,4 +15,8 @@ class semester extends Model
     {
         return $this->hasMany(Lesson::class);
     }
+    public function units()
+    {
+        return $this->hasMany(Unit::class);
+    }
 }

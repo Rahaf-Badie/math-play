@@ -6,16 +6,97 @@
     <title>منصة تعليمية للأطفال | Math&Play</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Lalezar&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+    <style>
+        /* تحسين اللوغو لجعله بارز أكثر */
+        .logo-svg {
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
 
+        .brand-name {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
+        .testimonial-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f7fa 100%) !important;
+            border: 1px solid #b3e5fc;
+            color: #01579b;
+        }
+
+        .testimonial-avatar-1 {
+            background: linear-gradient(135deg, #81d4fa 0%, #4fc3f7 100%);
+        }
+
+        .testimonial-avatar-2 {
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            color: #5d4037 !important;
+        }
+
+        .testimonial-avatar-3 {
+            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+            color: #1b5e20 !important;
+        }
+
+        .why-item {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%) !important;
+            border: 1px solid #ce93d8;
+            color: #4a148c;
+        }
+
+        .why-bullet {
+            background: linear-gradient(135deg, #ba68c8 0%, #8e24aa 100%);
+            color: white;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%) !important;
+            border: 1px solid #a5d6a7;
+            color: #1b5e20;
+        }
+
+        .btn-solid {
+            background: linear-gradient(135deg, #42a5f5 0%, #1976d2 100%);
+            border: none;
+            color: white;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 2px solid #42a5f5;
+            color: #42a5f5;
+        }
+
+        .section-title {
+            color: #1565c0;
+        }
+
+        /* تحسين النص في البطاقات */
+        .testimonial-card p,
+        .why-item p,
+        .service-card p {
+            color: #37474f;
+        }
+
+        .testimonial-card h6,
+        .why-item h6,
+        .service-card h5 {
+            color: #0d47a1;
+        }
+
+        /* تأثيرات خفيفة للبطاقات */
+        .testimonial-card:hover,
+        .why-item:hover,
+        .service-card:hover {
+            transform: translateY(-2px);
+            transition: transform 0.3s ease;
+        }
+    </style>
 </head>
 <body>
 
+    <!-- الكود الأصلي يبقى كما هو -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand brand-wrap" href="#">
@@ -107,7 +188,7 @@
                 <div class="col-md-6 reveal">
                     <h2 class="section-title wavy-underline">عن المنصة</h2>
                     <p>منصة <strong>Math&Play</strong> صُمّمت لتجعل الرياضيات رحلة ممتعة مليئة بالتشويق والاكتشاف، بعيدًا عن الطرق التقليدية المملة.</p>
-                    <p>نوفر مسارات مناسبة للأعمار **من الصف الأول حتى الرابع**، مع تجارب تفاعلية تقيس تقدم طفلك وتحمّسه للتعلم.</p>
+                    <p>نوفر مسارات مناسبة للأعمار من الصف الأول حتى الرابع، مع تجارب تفاعلية تقيس تقدم طفلك وتحمّسه للتعلم.</p>
                     <a href="{{ route('mathplay.signup') }}" class="btn btn-solid mt-2">سجل لطفلك الآن</a>
                 </div>
             </div>
@@ -117,7 +198,12 @@
     <section id="services" class="services">
         <div class="container">
             <h2 class="section-title text-center wavy-underline">خدماتنا</h2>
-            <p class="text-center lead">محتوى متنوع يناسب مراحل **الصف الأول والثاني والثالث والرابع**.</p>
+            <p class="text-center lead" style="font-family: 'Cairo', sans-serif; color: #374151; line-height: 1.7; margin: 1rem 0;">
+                🎓 محتوى متنوع يناسب مراحل
+                <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; padding: 2px 4px;">
+                    الصف الأول والثاني والثالث والرابع
+                </span>
+            </p>
             <div class="row g-4 justify-content-center">
                 <div class="col-sm-8 col-md-6 col-lg-4 reveal">
                     <div class="service-card">
@@ -269,6 +355,7 @@
     @vite('resources/js/app.js')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- باقي السكريبتات تبقى كما هي -->
     <script>
         // Safety: only run if element exists
         try {
@@ -312,7 +399,7 @@
         try {
             const footerIcons = document.querySelectorAll('.footer-icons a');
             footerIcons.forEach(icon => {
-                icon.style.transition = 'transform 0.3s ease'; // لضمان وجود الانتقال
+                icon.style.transition = 'transform 0.3s ease';
                 icon.addEventListener('mouseenter', function() {
                     this.style.transform = 'translateY(-6px) scale(1.1) rotate(5deg)';
                 });
@@ -321,7 +408,6 @@
                     this.style.transform = 'translateY(0) scale(1) rotate(0deg)';
                 });
 
-                // Add click animation
                 icon.addEventListener('click', function(e) {
                     e.preventDefault();
                     this.style.transform = 'translateY(-6px) scale(1.2) rotate(10deg)';

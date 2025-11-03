@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Game;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -19,8 +20,9 @@ class DatabaseSeeder extends Seeder
             SemesterSeeder::class,
             UnitSeeder::class,
             LessonSeeder::class,
+            GameSeeder::class,
             LessonGamesSeeder::class,
-            GameContentSeeder::class,
+            GameSettingsSeeder::class,
             ExamResultsSeeder::class,
 ]);
     }

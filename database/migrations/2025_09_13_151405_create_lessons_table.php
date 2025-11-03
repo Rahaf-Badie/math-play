@@ -16,6 +16,9 @@ return new class extends Migration
         $table->string('name');
         $table->unsignedBigInteger('unit_id');
         $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
+        $table->text('description')->nullable();
+        $table->string('video_url')->nullable();
+        $table->string('pdf_path')->nullable();
         $table->timestamps();
     });
 }

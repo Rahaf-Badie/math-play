@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class GameContent extends Model
+class GameSettings extends Model
 {
     use HasFactory;
 
-    protected $table = 'game_content';
-
-    protected $fillable = ['lesson_game_id', 'question', 'correct_answer', 'options', 'min_range', 'max_range'];
+    protected $fillable = ['lesson_game_id', 'min_range', 'max_range', 'operation_type'];
 
     protected $casts = [
         'options' => 'json',

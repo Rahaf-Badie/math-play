@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('game_content', function (Blueprint $table) {
+        Schema::create('game_settings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lesson_games_id')->constrained('lesson_games')->onDelete('cascade');
-            $table->text('question');
-            $table->text('correct_answer');
-            $table->json('options')->nullable();
+            $table->foreignId('lesson_game_id')->constrained('lesson_games')->onDelete('cascade');
             $table->integer('min_range')->nullable();
             $table->integer('max_range')->nullable();
+            $table->string('operation_type')->nullable(); // مثلاً: "addition" أو "subtraction"
             $table->timestamps();
         });
+
     }
 
     /**
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('game_content');
+        Schema::dropIfExists('game_settings');
     }
 };

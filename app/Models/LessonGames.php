@@ -23,8 +23,8 @@ class LessonGames extends Model
         return $this->belongsTo(Game::class);
     }
 
-    public function contents()
+    public function game_settings()
     {
-        return $this->hasMany(GameContent::class);
+        return $this->hasOne(GameSettings::class, 'lesson_game_id');
     }
 }

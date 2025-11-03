@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Lesson extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'unit_id', 'grade_id', 'semester_id'];
+    protected $fillable = ['name', 'unit_id', 'description', 'video_url', 'pdf_path'];
 
     public function grade()
     {
@@ -24,6 +24,11 @@ class Lesson extends Model
     public function unit()
     {
         return $this->belongsTo(Unit::class);
+    }
+
+    public function game()
+    {
+        return $this->belongsTo(Game::class);
     }
 
     public function lessonGames()

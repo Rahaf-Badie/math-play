@@ -10,44 +10,43 @@ class UnitSeeder extends Seeder
 {
     public function run(): void
     {
-        Unit::create(['name' => 'الوحدة الأولى', 'grade_id' => 1, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_1_1_1.blade.php']);
-        Unit::create(['name' => 'الوحدة الثانية', 'grade_id' => 1, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_1_1_2.blade.php']);
-        Unit::create(['name' => 'الوحدة الثالثة', 'grade_id' => 1, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_1_1_3.blade.php']);
-        Unit::create(['name' => 'الوحدة الرابعة', 'grade_id' => 1, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_1_1_4.blade.php']);
-        Unit::create(['name' => 'الوحدة الخامسة', 'grade_id' => 1, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_1_1_5.blade.php']);
+        Unit::create(['name' => 'الوحدة الأولى', 'grade_id' => 1, 'semester_id' => 1, 'exam_url' => 'garde1sem1u1']);
+        Unit::create(['name' => 'الوحدة الثانية', 'grade_id' => 1, 'semester_id' => 1, 'exam_url' => 'garde1sem1u2']);
+        Unit::create(['name' => 'الوحدة الثالثة', 'grade_id' => 1, 'semester_id' => 1, 'exam_url' => 'garde1sem1u3']);
+        Unit::create(['name' => 'الوحدة الرابعة', 'grade_id' => 1, 'semester_id' => 1, 'exam_url' => 'garde1sem1u4']);
+        Unit::create(['name' => 'الوحدة الخامسة', 'grade_id' => 1, 'semester_id' => 1, 'exam_url' => 'garde1sem1u5']);
 
-        Unit::create(['name' => 'الوحدة الأولى', 'grade_id' => 1, 'semester_id' => 2, 'exam_url' => '/resources/views/exams/exam_1_2_1.blade.php']);
-        Unit::create(['name' => 'الوحدة الثانية', 'grade_id' => 1, 'semester_id' => 2, 'exam_url' => '/resources/views/exams/exam_1_2_2.blade.php']);
-        Unit::create(['name' => 'الوحدة الثالثة', 'grade_id' => 1, 'semester_id' => 2, 'exam_url' => '/resources/views/exams/exam_1_2_3.blade.php']);
+        Unit::create(['name' => 'الوحدة الأولى', 'grade_id' => 1, 'semester_id' => 2, 'exam_url' => 'garde1sem2u1']);
+        Unit::create(['name' => 'الوحدة الثانية', 'grade_id' => 1, 'semester_id' => 2, 'exam_url' => 'garde1sem2u2']);
+        Unit::create(['name' => 'الوحدة الثالثة', 'grade_id' => 1, 'semester_id' => 2, 'exam_url' => 'garde1sem2u3']);
 
-        Unit::create(['name' => 'الوحدة الأولى', 'grade_id' => 2, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_2_1_1.blade.php']);
-        Unit::create(['name' => 'الوحدة الثانية', 'grade_id' => 2, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_2_1_2.blade.php']);
-        Unit::create(['name' => 'الوحدة الثالثة', 'grade_id' => 2, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_2_1_3.blade.php']);
-        Unit::create(['name' => 'الوحدة الرابعة', 'grade_id' => 2, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_2_1_4.blade.php']);
+        Unit::create(['name' => 'الوحدة الأولى', 'grade_id' => 2, 'semester_id' => 1, 'exam_url' => 'grade2sem1u1']);
+        Unit::create(['name' => 'الوحدة الثانية', 'grade_id' => 2, 'semester_id' => 1, 'exam_url' => 'grade2sem1u2']);
+        Unit::create(['name' => 'الوحدة الثالثة', 'grade_id' => 2, 'semester_id' => 1, 'exam_url' => 'grade2sem1u3']);
+        Unit::create(['name' => 'الوحدة الرابعة', 'grade_id' => 2, 'semester_id' => 1, 'exam_url' => 'grade2sem1u4']);
 
-        Unit::create(['name' => 'الوحدة الأولى', 'grade_id' => 2, 'semester_id' => 2, 'exam_url' => '/resources/views/exams/exam_2_2_1.blade.php']);
-        Unit::create(['name' => 'الوحدة الثانية', 'grade_id' => 2, 'semester_id' => 2, 'exam_url' => '/resources/views/exams/exam_2_2_2.blade.php']);
+        Unit::create(['name' => 'الوحدة الأولى', 'grade_id' => 2, 'semester_id' => 2, 'exam_url' => 'grade2sem2u1']);
+        Unit::create(['name' => 'الوحدة الثانية', 'grade_id' => 2, 'semester_id' => 2, 'exam_url' => 'grade2sem2u2']);
 
-        Unit::create(['name' => 'الوحدة الأولى', 'grade_id' => 3, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_3_1_1.blade.php']);
-        Unit::create(['name' => 'الوحدة الثانية', 'grade_id' => 3, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_3_1_2.blade.php']);
-        Unit::create(['name' => 'الوحدة الثالثة', 'grade_id' => 3, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_3_1_3.blade.php']);
+        Unit::create(['name' => 'الوحدة الأولى', 'grade_id' => 3, 'semester_id' => 1, 'exam_url' => 'grade3sem1u1']);
+        Unit::create(['name' => 'الوحدة الثانية', 'grade_id' => 3, 'semester_id' => 1, 'exam_url' => 'grade3sem1u2']);
+        Unit::create(['name' => 'الوحدة الثالثة', 'grade_id' => 3, 'semester_id' => 1, 'exam_url' => 'grade3sem1u3']);
 
-        Unit::create(['name' => 'الوحدة الأولى', 'grade_id' => 3, 'semester_id' => 2, 'exam_url' => '/resources/views/exams/exam_3_2_1.blade.php']);
-        Unit::create(['name' => 'الوحدة الثانية', 'grade_id' => 3, 'semester_id' => 2, 'exam_url' => '/resources/views/exams/exam_3_2_2.blade.php']);
-        Unit::create(['name' => 'الوحدة الثالثة', 'grade_id' => 3, 'semester_id' => 2, 'exam_url' => '/resources/views/exams/exam_3_2_3.blade.php']);
-        Unit::create(['name' => 'الوحدة الرابعة', 'grade_id' => 3, 'semester_id' => 2, 'exam_url' => '/resources/views/exams/exam_3_2_4.blade.php']);
-        Unit::create(['name' => 'الوحدة الخامسة', 'grade_id' => 3, 'semester_id' => 2, 'exam_url' => '/resources/views/exams/exam_3_2_5.blade.php']);
+        Unit::create(['name' => 'الوحدة الأولى', 'grade_id' => 3, 'semester_id' => 2, 'exam_url' => 'grade3sem2u1']);
+        Unit::create(['name' => 'الوحدة الثانية', 'grade_id' => 3, 'semester_id' => 2, 'exam_url' => 'grade3sem2u2']);
+        Unit::create(['name' => 'الوحدة الثالثة', 'grade_id' => 3, 'semester_id' => 2, 'exam_url' => 'grade3sem2u3']);
+        Unit::create(['name' => 'الوحدة الرابعة', 'grade_id' => 3, 'semester_id' => 2, 'exam_url' => 'grade3sem2u4']);
+        Unit::create(['name' => 'الوحدة الخامسة', 'grade_id' => 3, 'semester_id' => 2, 'exam_url' => 'grade3sem2u5']);
 
-        Unit::create(['name' => 'الوحدة الأولى', 'grade_id' => 4, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_4_1_1.blade.php']);
-        Unit::create(['name' => 'الوحدة الثانية', 'grade_id' => 4, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_4_1_2.blade.php']);
-        Unit::create(['name' => 'الوحدة الثالثة', 'grade_id' => 4, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_4_1_3.blade.php']);
-        Unit::create(['name' => 'الوحدة الرابعة', 'grade_id' => 4, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_4_1_4.blade.php']);
-        Unit::create(['name' => 'الوحدة الخامسة', 'grade_id' => 4, 'semester_id' => 1, 'exam_url' => '/resources/views/exams/exam_4_1_5.blade.php']);
+        Unit::create(['name' => 'الوحدة الأولى', 'grade_id' => 4, 'semester_id' => 1, 'exam_url' => 'grade4sem1u1']);
+        Unit::create(['name' => 'الوحدة الثانية', 'grade_id' => 4, 'semester_id' => 1, 'exam_url' => 'grade4sem1u2']);
+        Unit::create(['name' => 'الوحدة الثالثة', 'grade_id' => 4, 'semester_id' => 1, 'exam_url' => 'grade4sem1u3']);
+        Unit::create(['name' => 'الوحدة الرابعة', 'grade_id' => 4, 'semester_id' => 1, 'exam_url' => 'grade4sem1u4']);
+        Unit::create(['name' => 'الوحدة الخامسة', 'grade_id' => 4, 'semester_id' => 1, 'exam_url' => 'grade4sem1u5']);
 
-        Unit::create(['name' => 'الوحدة الأولى', 'grade_id' => 4, 'semester_id' => 2, 'exam_url' => '/resources/views/exams/exam_4_2_1.blade.php']);
-        Unit::create(['name' => 'الوحدة الثانية', 'grade_id' => 4, 'semester_id' => 2, 'exam_url' => '/resources/views/exams/exam_4_2_2.blade.php']);
-        Unit::create(['name' => 'الوحدة الثالثة', 'grade_id' => 4, 'semester_id' => 2, 'exam_url' => '/resources/views/exams/exam_4_2_3.blade.php']);
-        Unit::create(['name' => 'الوحدة الرابعة', 'grade_id' => 4, 'semester_id' => 2, 'exam_url' => '/resources/views/exams/exam_4_2_4.blade.php']);
-        Unit::create(['name' => 'الوحدة الخامسة', 'grade_id' => 4, 'semester_id' => 2, 'exam_url' => '/resources/views/exams/exam_4_2_5.blade.php']);
+        Unit::create(['name' => 'الوحدة الأولى', 'grade_id' => 4, 'semester_id' => 2, 'exam_url' => 'grade4sem1u1']);
+        Unit::create(['name' => 'الوحدة الثانية', 'grade_id' => 4, 'semester_id' => 2, 'exam_url' => 'grade4sem1u2']);
+        Unit::create(['name' => 'الوحدة الثالثة', 'grade_id' => 4, 'semester_id' => 2, 'exam_url' => 'grade4sem1u3']);
+        Unit::create(['name' => 'الوحدة الرابعة', 'grade_id' => 4, 'semester_id' => 2, 'exam_url' => 'grade4sem1u4']);
     }
 }
